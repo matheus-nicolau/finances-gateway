@@ -22,10 +22,25 @@ public class CoreRoute {
     @Bean
     public RouterFunction<ServerResponse> coreClientRequests() {
         String baseUrl = url.coreClient();
-        return route("list_all_clients")
-                                .GET("/list", http(baseUrl))
-                                .before(rewritePath("/list", "/clients/list"))
-                                .build();
+
+        return route("list_one_client")
+                                .GET("/v1/list/{email}", http(baseUrl))
+                                .before(rewritePath("/v1/list/(?<segment>.*)", "/clients/${segment}"))
+                                .build()
+                .and(route("list_all_clients")
+                                .GET("/v1/list", http(baseUrl))
+                                .before(rewritePath("/v1/list", "/clients/list"))
+                                .build())
+                .and(route("create_client")
+                                .POST("/v1/create", http(baseUrl))
+                                .before(rewritePath("/v1/create", "/clients/create"))
+                                .build())
+                .and(route("remove_client")
+                                .DELETE("/v1/remove/{email}", http(baseUrl))
+                                .before(rewritePath("/v1/remove/(?<segment>.*)",
+                                                                             "/clients/remove/${segment}"))
+                                .build());
+
     }
 
 }
