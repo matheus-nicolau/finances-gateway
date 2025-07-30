@@ -4,6 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties(prefix = "urls")
 public record UrlProperties(
-        String coreClient
+        String coreClient,
+        String creditCard
 ) { }
 

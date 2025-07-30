@@ -10,8 +10,18 @@ spring:
 
 eureka:
   client:
+    fetch-registry: true
+    register-with-eureka: true
     service-url:
       defaultZone: http://${DISCOVERY_URL}/eureka
 
 urls:
   core-client: ${CORE_CLIENT_URL}
+  credit-card: ${CREDIT_CARD_URL}
+
+#  cloud:
+#    gateway:
+#      discovery:
+#        locator:
+#          enable: true
+#          lower-case-service-id: true
